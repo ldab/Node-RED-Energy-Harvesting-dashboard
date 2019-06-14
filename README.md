@@ -39,15 +39,22 @@ Node-RED Energy Harvesting dashboard example, weather forecast, temperature and 
 
 ## TODO
 
-- [ ] TODO; XD
+- [ ] More detailed IBM deploy;
+- [ ] Details on the flows;
+- [ ] Node to be installed;
+- [ ] Energy Harvesting details;
 
 ## Why?
 
 An example code on IoT, solar PV energy harsting example running on ESP32 u-blox NINA-W10, MQTT on Node-RED hosted on IBM cloud.
 
+## Energy Harvesting
+
+...
+
 ## MQTT Broker
 
-The MQTT Broker used is [CloudMQTT](https://www.cloudmqtt.com/) they offer Free accounts ;)
+The MQTT Broker used is [CloudMQTT](https://www.cloudmqtt.com/) they offer Free accounts 😉 that works just fine.
 
 ## IBM Node-RED Hosting
 
@@ -57,7 +64,7 @@ The process was a bit tedious and took a while to get it properly running as of 
 
 ## Node-RED Flow
 
-You will find the flow.json [here](./Node-RED flow/flows.json).
+You will find the flow.json [here](./Node-RED%20flow/flows.json).
 
 ![Node-RED Flow](./pics/screenshot.png)
 
