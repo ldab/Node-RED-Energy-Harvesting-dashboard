@@ -1,0 +1,496 @@
+[
+    {
+        "id": "2d7c70cb.16397",
+        "type": "tab",
+        "label": "Flow 1",
+        "disabled": false,
+        "info": ""
+    },
+    {
+        "id": "cc35e567.9b058",
+        "type": "mqtt-broker",
+        "z": "",
+        "name": "CloudMQTT",
+        "broker": "m24.cloudmqtt.com",
+        "port": "17603",
+        "clientid": "",
+        "usetls": false,
+        "compatmode": true,
+        "keepalive": "60",
+        "cleansession": true,
+        "birthTopic": "",
+        "birthQos": "0",
+        "birthPayload": "",
+        "closeTopic": "",
+        "closeQos": "0",
+        "closePayload": "",
+        "willTopic": "",
+        "willQos": "0",
+        "willPayload": ""
+    },
+    {
+        "id": "7a865b4.4065ea4",
+        "type": "ui_tab",
+        "z": "",
+        "name": "MoreE",
+        "icon": "fa-fire",
+        "disabled": false,
+        "hidden": true
+    },
+    {
+        "id": "d51f7104.b5f31",
+        "type": "ui_group",
+        "z": "",
+        "name": "Default",
+        "tab": "7a865b4.4065ea4",
+        "disp": false,
+        "width": "8",
+        "collapse": false
+    },
+    {
+        "id": "d3885f0a.bdf2",
+        "type": "ui_base",
+        "theme": {
+            "name": "theme-light",
+            "lightTheme": {
+                "default": "#0094CE",
+                "baseColor": "#0094CE",
+                "baseFont": "-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen-Sans,Ubuntu,Cantarell,Helvetica Neue,sans-serif",
+                "edited": true,
+                "reset": false
+            },
+            "darkTheme": {
+                "default": "#097479",
+                "baseColor": "#097479",
+                "baseFont": "-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen-Sans,Ubuntu,Cantarell,Helvetica Neue,sans-serif",
+                "edited": false
+            },
+            "customTheme": {
+                "name": "Untitled Theme 1",
+                "default": "#4B7930",
+                "baseColor": "#4B7930",
+                "baseFont": "-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen-Sans,Ubuntu,Cantarell,Helvetica Neue,sans-serif"
+            },
+            "themeState": {
+                "base-color": {
+                    "default": "#0094CE",
+                    "value": "#0094CE",
+                    "edited": false
+                },
+                "page-titlebar-backgroundColor": {
+                    "value": "#0094CE",
+                    "edited": false
+                },
+                "page-backgroundColor": {
+                    "value": "#fafafa",
+                    "edited": false
+                },
+                "page-sidebar-backgroundColor": {
+                    "value": "#ffffff",
+                    "edited": false
+                },
+                "group-textColor": {
+                    "value": "#1bbfff",
+                    "edited": false
+                },
+                "group-borderColor": {
+                    "value": "#ffffff",
+                    "edited": false
+                },
+                "group-backgroundColor": {
+                    "value": "#ffffff",
+                    "edited": false
+                },
+                "widget-textColor": {
+                    "value": "#111111",
+                    "edited": false
+                },
+                "widget-backgroundColor": {
+                    "value": "#0094ce",
+                    "edited": false
+                },
+                "widget-borderColor": {
+                    "value": "#ffffff",
+                    "edited": false
+                },
+                "base-font": {
+                    "value": "-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen-Sans,Ubuntu,Cantarell,Helvetica Neue,sans-serif"
+                }
+            },
+            "angularTheme": {
+                "primary": "indigo",
+                "accents": "blue",
+                "warn": "red",
+                "background": "grey"
+            }
+        },
+        "site": {
+            "name": "Node-RED Dashboard",
+            "hideToolbar": "false",
+            "allowSwipe": "false",
+            "lockMenu": "false",
+            "allowTempTheme": "true",
+            "dateFormat": "DD/MM/YYYY",
+            "sizes": {
+                "sx": 48,
+                "sy": 48,
+                "gx": 6,
+                "gy": 6,
+                "cx": 6,
+                "cy": 6,
+                "px": 0,
+                "py": 0
+            }
+        }
+    },
+    {
+        "id": "1c054588.71a26a",
+        "type": "ui_spacer",
+        "name": "spacer",
+        "group": "d51f7104.b5f31",
+        "order": 6,
+        "width": "8",
+        "height": 1
+    },
+    {
+        "id": "2dc72f97.1996e",
+        "type": "openweathermap in",
+        "z": "2d7c70cb.16397",
+        "name": "CPH Forecast",
+        "wtype": "current",
+        "lon": "",
+        "lat": "",
+        "city": "Copenhagen",
+        "country": "Denmark",
+        "language": "en",
+        "x": 138.5,
+        "y": 512,
+        "wires": [
+            [
+                "f5533338.5f528",
+                "ea641cd.ab504e"
+            ]
+        ]
+    },
+    {
+        "id": "85b4d927.0f19d",
+        "type": "debug",
+        "z": "2d7c70cb.16397",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "x": 874.5,
+        "y": 394.79998779296875,
+        "wires": []
+    },
+    {
+        "id": "d126741b.54dc88",
+        "type": "mqtt in",
+        "z": "2d7c70cb.16397",
+        "name": "temp_office",
+        "topic": "temp_office",
+        "qos": "1",
+        "datatype": "auto",
+        "broker": "cc35e567.9b058",
+        "x": 124.50001525878906,
+        "y": 37.399993896484375,
+        "wires": [
+            [
+                "8ab1f874.87689"
+            ]
+        ]
+    },
+    {
+        "id": "66a0464e.7122c",
+        "type": "mqtt in",
+        "z": "2d7c70cb.16397",
+        "name": "hum_office",
+        "topic": "hum_office",
+        "qos": "1",
+        "datatype": "auto",
+        "broker": "cc35e567.9b058",
+        "x": 113.50001525878906,
+        "y": 115.39999389648438,
+        "wires": [
+            [
+                "d20a3857.73338"
+            ]
+        ]
+    },
+    {
+        "id": "8ab1f874.87689",
+        "type": "ui_gauge",
+        "z": "2d7c70cb.16397",
+        "name": "temp_office",
+        "group": "d51f7104.b5f31",
+        "order": 1,
+        "width": "4",
+        "height": "3",
+        "gtype": "gage",
+        "title": "Temp",
+        "label": "°C",
+        "format": "{{value | number:1}}",
+        "min": "-10",
+        "max": "40",
+        "colors": [
+            "#0000ff",
+            "#e6e600",
+            "#ca3838"
+        ],
+        "seg1": "",
+        "seg2": "",
+        "x": 880.5,
+        "y": 40.80000305175781,
+        "wires": []
+    },
+    {
+        "id": "d20a3857.73338",
+        "type": "ui_gauge",
+        "z": "2d7c70cb.16397",
+        "name": "hum_office",
+        "group": "d51f7104.b5f31",
+        "order": 2,
+        "width": "4",
+        "height": "3",
+        "gtype": "gage",
+        "title": "Hum",
+        "label": "%",
+        "format": "{{value | number:1}}",
+        "min": 0,
+        "max": "100",
+        "colors": [
+            "#00b500",
+            "#0000ff",
+            "#0000ff"
+        ],
+        "seg1": "",
+        "seg2": "",
+        "x": 883.5,
+        "y": 114.80000305175781,
+        "wires": []
+    },
+    {
+        "id": "a6c00b8e.440318",
+        "type": "ui_template",
+        "z": "2d7c70cb.16397",
+        "group": "d51f7104.b5f31",
+        "name": "Weather icon",
+        "order": 4,
+        "width": "1",
+        "height": "1",
+        "format": "<div style=\"font-size: 32px; height:100%; justify-content:center; align-items:center;\">\n<i class={{msg.payload}}></i>\n</div>",
+        "storeOutMessages": true,
+        "fwdInMessages": false,
+        "templateScope": "local",
+        "x": 682.5,
+        "y": 505.4000244140625,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "f5533338.5f528",
+        "type": "ui_text",
+        "z": "2d7c70cb.16397",
+        "group": "d51f7104.b5f31",
+        "order": 5,
+        "width": "7",
+        "height": "1",
+        "name": "Forecast String",
+        "label": " ",
+        "format": "{{payload.location}} - {{payload.detail}} - {{payload.tempc}}°C @ {{payload.humidity}}%",
+        "layout": "row-left",
+        "x": 674.5,
+        "y": 568,
+        "wires": []
+    },
+    {
+        "id": "ea641cd.ab504e",
+        "type": "template",
+        "z": "2d7c70cb.16397",
+        "name": "",
+        "field": "payload",
+        "fieldType": "msg",
+        "format": "handlebars",
+        "syntax": "mustache",
+        "template": "wi wi-owm-{{payload.icon}}",
+        "output": "str",
+        "x": 458.5,
+        "y": 506.40000915527344,
+        "wires": [
+            [
+                "a6c00b8e.440318"
+            ]
+        ]
+    },
+    {
+        "id": "27028abc.3d0276",
+        "type": "ui_chart",
+        "z": "2d7c70cb.16397",
+        "name": "Battery",
+        "group": "d51f7104.b5f31",
+        "order": 3,
+        "width": "8",
+        "height": "4",
+        "label": "",
+        "chartType": "line",
+        "legend": "false",
+        "xformat": "HH:mm",
+        "interpolate": "linear",
+        "nodata": "",
+        "dot": false,
+        "ymin": "0",
+        "ymax": "4",
+        "removeOlder": "8",
+        "removeOlderPoints": "",
+        "removeOlderUnit": "604800",
+        "cutout": 0,
+        "useOneColor": false,
+        "colors": [
+            "#1f77b4",
+            "#aec7e8",
+            "#ff7f0e",
+            "#2ca02c",
+            "#98df8a",
+            "#d62728",
+            "#ff9896",
+            "#9467bd",
+            "#c5b0d5"
+        ],
+        "useOldStyle": false,
+        "outputs": 1,
+        "x": 894.5,
+        "y": 176.59996032714844,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "53d440ba.0b458",
+        "type": "mqtt in",
+        "z": "2d7c70cb.16397",
+        "name": "batt_office",
+        "topic": "batt_office",
+        "qos": "0",
+        "datatype": "auto",
+        "broker": "cc35e567.9b058",
+        "x": 112.5,
+        "y": 182.39999389648438,
+        "wires": [
+            [
+                "27028abc.3d0276",
+                "48286253.ed3eec"
+            ]
+        ]
+    },
+    {
+        "id": "24fddd40.81e50a",
+        "type": "ui_text",
+        "z": "2d7c70cb.16397",
+        "group": "d51f7104.b5f31",
+        "order": 8,
+        "width": "4",
+        "height": "1",
+        "name": "Running for:",
+        "label": "Running for:",
+        "format": "{{msg.payload}}",
+        "layout": "col-center",
+        "x": 882.5,
+        "y": 325.4000244140625,
+        "wires": []
+    },
+    {
+        "id": "402b8abd.a667d4",
+        "type": "function",
+        "z": "2d7c70cb.16397",
+        "name": "Time Diff Calc",
+        "func": "// Create a Date object from the payload and remove initial time\n// Friday, June 14, 2019 2:00:00 PM GMT+02:00\nvar date    = (msg.payload - 1560520800000) / 1000;\n\n//Truncate to int if divded by 1000 to show sec\ndate = Math.floor(date);\n\nvar seconds = parseInt((date)%60);\nvar minutes = parseInt((date/60)%60);\nvar hours   = parseInt((date/(60*60))%24);\n\nhours = (hours < 10) ? \"0\" + hours : hours;\nminutes = (minutes < 10) ? \"0\" + minutes : minutes;\nseconds = (seconds < 10) ? \"0\" + seconds : seconds;\n\nvar date_ret = hours + \":\" + minutes + \":\" + seconds;\n\nmsg.payload = date_ret;\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 456.5,
+        "y": 324.79998779296875,
+        "wires": [
+            [
+                "85b4d927.0f19d",
+                "24fddd40.81e50a"
+            ]
+        ]
+    },
+    {
+        "id": "a5b443c.7e77cc",
+        "type": "inject",
+        "z": "2d7c70cb.16397",
+        "name": "every sec",
+        "topic": "timenow",
+        "payload": "",
+        "payloadType": "date",
+        "repeat": "1",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "x": 133.89999389648438,
+        "y": 322,
+        "wires": [
+            [
+                "402b8abd.a667d4"
+            ]
+        ]
+    },
+    {
+        "id": "2920a25f.c5a1de",
+        "type": "ui_text",
+        "z": "2d7c70cb.16397",
+        "group": "d51f7104.b5f31",
+        "order": 7,
+        "width": "4",
+        "height": "1",
+        "name": "Last seen",
+        "label": "Last seen:",
+        "format": "{{msg.payload}}",
+        "layout": "col-center",
+        "x": 890.2000122070312,
+        "y": 237.1999969482422,
+        "wires": []
+    },
+    {
+        "id": "48286253.ed3eec",
+        "type": "trigger",
+        "z": "2d7c70cb.16397",
+        "op1": "",
+        "op2": "",
+        "op1type": "date",
+        "op2type": "nul",
+        "duration": "250",
+        "extend": true,
+        "units": "ms",
+        "reset": "",
+        "bytopic": "all",
+        "name": "",
+        "x": 387.5,
+        "y": 237.99998474121094,
+        "wires": [
+            [
+                "f45dc394.af89b8"
+            ]
+        ]
+    },
+    {
+        "id": "f45dc394.af89b8",
+        "type": "function",
+        "z": "2d7c70cb.16397",
+        "name": "Convert to String",
+        "func": "// Create a Date object from the payload\nvar date = new Date(msg.payload + 1000*60*60*2);\n\n// Adjust date format\ndate = date.toLocaleString('dk', { weekday: 'short', year: '2-digit', \n    month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit', \n    second: '2-digit'});\n\n// Change the payload to be a formatted Date string\nmsg.payload = date.toString();\n\n// Return the message so it can be sent on\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 630.5,
+        "y": 238.1999969482422,
+        "wires": [
+            [
+                "2920a25f.c5a1de"
+            ]
+        ]
+    }
+]
