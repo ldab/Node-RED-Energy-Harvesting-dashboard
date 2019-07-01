@@ -10,6 +10,22 @@ Node-RED Energy Harvesting dashboard example, weather forecast, temperature and 
 
 [![dashboard](./pics/dashboard.png)](https://www.u-blox.com/en/product/nina-W10-series)
 
+## Sumary
+
+1. [How to build PlatformIO based project](/README.md#How-to-build-PlatformIO-based-project)
+2. [TODO](/README.md#TODO)
+3. [Energy Harvesting](/README.md#Energy-Harvesting)
+4. [MQTT Broker](/README.md#MQTT-Broker)
+5. [IBM Node-RED Hosting](/README.md#IBM-Node-RED-Hosting)
+6. [Node-RED Flow](/README.md#Node-RED-Flow)
+7. [OpenWeatherMap API](/README.md#OpenWeatherMap-API)
+8. [Calibrating ADC for ESP32](/README.md#Calibrating-ADC-for-ESP32)
+9. [Partition Table and Flash size](/README.md#Partition-Table-and-Flash-size)
+10. [Erase Flash](/README.md#Erase-Flash)
+11. [PCB](/README.md#PCB)
+12. [BOM](/README.md#BOM)
+13. [Credits](/README.md#Credits)
+
 ## How to build PlatformIO based project
 
 1. [Install PlatformIO Core](http://docs.platformio.org/page/core.html)
@@ -41,16 +57,33 @@ Node-RED Energy Harvesting dashboard example, weather forecast, temperature and 
 
 - [ ] More detailed IBM deploy;
 - [ ] Details on the flows;
-- [ ] Node to be installed;
+- [x] Node to be installed;
 - [ ] Energy Harvesting details;
-
-## Why?
-
-An example code on IoT, solar PV energy harsting example running on ESP32 u-blox NINA-W10, MQTT on Node-RED hosted on IBM cloud.
 
 ## Energy Harvesting
 
-...
+### Energy Budget
+
+#### While Communicating
+
+Component | ~Typ mA
+----------|--------
+NINA-W102 |120
+
+#### While Sleep (TPL5110)
+
+Component | ~Typ μA
+----------|--------
+TPL5110   |0.035
+Cap leak  |30
+LDO       |1
+Passive   |5
+
+* The code takes in average 2000ms to execute;
+* Wakes up every hour;
+* 10 hours of charging soruce;
+
+![energy budget](./pics/supercap%20budget.png)
 
 ## MQTT Broker
 
@@ -63,6 +96,14 @@ The process was a bit tedious and took a while to get it properly running as of 
 [https://nodered.org/docs/platforms/bluemix](https://nodered.org/docs/platforms/bluemix)
 
 ## Node-RED Flow
+
+### Install required nodes
+
+* Menu -> Manage Palette -> Install tab. You will need `node-red-node-openweathermap` and `node-red-dashboard`
+
+### Import Node example
+
+* Copy the flow below and import to your Nore-RED available at `yournode.eu-gb.mybluemix.net/red` Import > Clipboard, paste it.
 
 You will find the flow.json [here](./Node-RED%20flow/flows.json).
 
@@ -88,6 +129,11 @@ You will find the flow.json [here](./Node-RED%20flow/flows.json).
 }
 ```
 
+## Calibrating ADC for ESP32
+
+* ADC on ESP32 has been reported being innacurate, therefore one can use ```adc2_vref_to_gpio( GPIO_NUM_25 );``` to route `Vref` to `GPIO_NUM_25` and measure it in order to calibrate during ADC measurement.
+* Calling for `esp_adc_cal_characterize(ADC_UNIT_1, ADC_ATTEN_DB_6, ADC_WIDTH_BIT_11, Vref, adc_chars);`
+
 ## Partition Table and Flash size
 
 * You can create a custom partitions table (CSV) following [ESP32 Partition Tables](https://docs.espressif.com/projects/esp-idf/en/latest/api-guides/partition-tables.html) documentation.
@@ -103,6 +149,17 @@ You will find the flow.json [here](./Node-RED%20flow/flows.json).
 
 `pio run -t erase` - > all data will be replaced with 0xFF bytes.
 
+## PCB
+
+![3D board u-blox E-PEAS](./pics/MoreE%20u-blox%20E-PEAS.png)
+
+![Schematic u-blox E-PEAS](./extras/schematic.pdf)
+
+## BOM
+
+![BOM u-blox E-PEAS](./extras/BOM.csv)
+
 ## Credits
 
 Github Shields and Badges created with [Shields.io](https://github.com/badges/shields/)
+Adafruit HTU21D GitHub [Library](https://github.com/adafruit/Adafruit_HTU21DF_Library)
