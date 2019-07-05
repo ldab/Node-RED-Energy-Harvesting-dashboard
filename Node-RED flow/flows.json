@@ -32,10 +32,10 @@
         "id": "7a865b4.4065ea4",
         "type": "ui_tab",
         "z": "",
-        "name": "MoreE",
-        "icon": "fa-fire",
+        "name": " ",
+        "icon": "fa-area-chart",
         "disabled": false,
-        "hidden": true
+        "hidden": false
     },
     {
         "id": "d51f7104.b5f31",
@@ -43,8 +43,9 @@
         "z": "",
         "name": "Default",
         "tab": "7a865b4.4065ea4",
+        "order": 2,
         "disp": false,
-        "width": "8",
+        "width": "6",
         "collapse": false
     },
     {
@@ -148,29 +149,80 @@
         "type": "ui_spacer",
         "name": "spacer",
         "group": "d51f7104.b5f31",
-        "order": 6,
-        "width": "8",
-        "height": 1
+        "order": 4,
+        "width": "6",
+        "height": "3"
     },
     {
-        "id": "2dc72f97.1996e",
-        "type": "openweathermap in",
-        "z": "2d7c70cb.16397",
-        "name": "CPH Forecast",
-        "wtype": "current",
-        "lon": "",
-        "lat": "",
-        "city": "Copenhagen",
-        "country": "Denmark",
-        "language": "en",
-        "x": 138.5,
-        "y": 512,
-        "wires": [
-            [
-                "f5533338.5f528",
-                "ea641cd.ab504e"
-            ]
-        ]
+        "id": "e22f9b53.01dce8",
+        "type": "ui_group",
+        "z": "",
+        "name": "Charts",
+        "tab": "",
+        "order": 2,
+        "disp": false,
+        "width": "6"
+    },
+    {
+        "id": "6f82df.a5e1b52",
+        "type": "ui_group",
+        "z": "",
+        "name": "Inputs",
+        "tab": "",
+        "order": 1,
+        "disp": false,
+        "width": "6"
+    },
+    {
+        "id": "567fc59d.6df2a4",
+        "type": "ui_group",
+        "z": "",
+        "name": "Group 3",
+        "tab": "",
+        "order": 3,
+        "disp": false,
+        "width": "6"
+    },
+    {
+        "id": "67b8c3fe.b9597c",
+        "type": "ui_group",
+        "z": "",
+        "name": "Header",
+        "tab": "7a865b4.4065ea4",
+        "order": 1,
+        "disp": false,
+        "width": "6",
+        "collapse": false
+    },
+    {
+        "id": "19b090a0.9e91b7",
+        "type": "ui_group",
+        "z": "",
+        "name": "Charts",
+        "tab": "",
+        "order": 2,
+        "disp": false,
+        "width": "6"
+    },
+    {
+        "id": "e1b308f6.a5b7d8",
+        "type": "ui_group",
+        "z": "",
+        "name": "Inputs",
+        "tab": "",
+        "order": 1,
+        "disp": false,
+        "width": "6"
+    },
+    {
+        "id": "316e4316.505f1c",
+        "type": "ui_group",
+        "z": "",
+        "name": "Group 3",
+        "tab": "",
+        "order": 3,
+        "disp": false,
+        "width": "6"
     },
     {
         "id": "85b4d927.0f19d",
@@ -180,10 +232,11 @@
         "active": true,
         "tosidebar": true,
         "console": false,
-        "tostatus": false,
-        "complete": "false",
-        "x": 874.5,
-        "y": 394.79998779296875,
+        "tostatus": true,
+        "complete": "payload",
+        "targetType": "msg",
+        "x": 865.5555725097656,
+        "y": 596.6666889190674,
         "wires": []
     },
     {
@@ -195,8 +248,8 @@
         "qos": "1",
         "datatype": "auto",
         "broker": "cc35e567.9b058",
-        "x": 124.50001525878906,
-        "y": 37.399993896484375,
+        "x": 110,
+        "y": 40,
         "wires": [
             [
                 "8ab1f874.87689"
@@ -212,8 +265,8 @@
         "qos": "1",
         "datatype": "auto",
         "broker": "cc35e567.9b058",
-        "x": 113.50001525878906,
-        "y": 115.39999389648438,
+        "x": 100,
+        "y": 100,
         "wires": [
             [
                 "d20a3857.73338"
@@ -225,9 +278,9 @@
         "type": "ui_gauge",
         "z": "2d7c70cb.16397",
         "name": "temp_office",
-        "group": "d51f7104.b5f31",
-        "order": 1,
-        "width": "4",
+        "group": "67b8c3fe.b9597c",
+        "order": 2,
+        "width": "3",
         "height": "3",
         "gtype": "gage",
         "title": "Temp",
@@ -242,8 +295,8 @@
         ],
         "seg1": "",
         "seg2": "",
-        "x": 880.5,
-        "y": 40.80000305175781,
+        "x": 870,
+        "y": 40,
         "wires": []
     },
     {
@@ -251,9 +304,9 @@
         "type": "ui_gauge",
         "z": "2d7c70cb.16397",
         "name": "hum_office",
-        "group": "d51f7104.b5f31",
-        "order": 2,
-        "width": "4",
+        "group": "67b8c3fe.b9597c",
+        "order": 3,
+        "width": "3",
         "height": "3",
         "gtype": "gage",
         "title": "Hum",
@@ -268,8 +321,8 @@
         ],
         "seg1": "",
         "seg2": "",
-        "x": 883.5,
-        "y": 114.80000305175781,
+        "x": 870,
+        "y": 100,
         "wires": []
     },
     {
@@ -278,15 +331,15 @@
         "z": "2d7c70cb.16397",
         "group": "d51f7104.b5f31",
         "name": "Weather icon",
-        "order": 4,
+        "order": 2,
         "width": "1",
         "height": "1",
-        "format": "<div style=\"font-size: 32px; height:100%; justify-content:center; align-items:center;\">\n<i class={{msg.payload}}></i>\n</div>",
+        "format": "<div style=\"font-size: 30px; height:100%; justify-content:center; align-items:center;\">\n<i class={{msg.payload}}></i>\n</div>",
         "storeOutMessages": true,
         "fwdInMessages": false,
         "templateScope": "local",
-        "x": 682.5,
-        "y": 505.4000244140625,
+        "x": 870,
+        "y": 801,
         "wires": [
             []
         ]
@@ -296,15 +349,15 @@
         "type": "ui_text",
         "z": "2d7c70cb.16397",
         "group": "d51f7104.b5f31",
-        "order": 5,
-        "width": "7",
+        "order": 3,
+        "width": "5",
         "height": "1",
         "name": "Forecast String",
         "label": " ",
-        "format": "{{payload.location}} - {{payload.detail}} - {{payload.tempc}}°C @ {{payload.humidity}}%",
-        "layout": "row-left",
-        "x": 674.5,
-        "y": 568,
+        "format": "{{payload.location}} - {{payload.detail}} {{payload.tempc}}°C @ {{payload.humidity}}%",
+        "layout": "col-center",
+        "x": 860,
+        "y": 861,
         "wires": []
     },
     {
@@ -318,8 +371,8 @@
         "syntax": "mustache",
         "template": "wi wi-owm-{{payload.icon}}",
         "output": "str",
-        "x": 458.5,
-        "y": 506.40000915527344,
+        "x": 700,
+        "y": 801,
         "wires": [
             [
                 "a6c00b8e.440318"
@@ -331,20 +384,20 @@
         "type": "ui_chart",
         "z": "2d7c70cb.16397",
         "name": "Battery",
-        "group": "d51f7104.b5f31",
-        "order": 3,
-        "width": "8",
-        "height": "4",
-        "label": "",
+        "group": "67b8c3fe.b9597c",
+        "order": 4,
+        "width": "0",
+        "height": "0",
+        "label": "Battery",
         "chartType": "line",
         "legend": "false",
-        "xformat": "HH:mm",
+        "xformat": "auto",
         "interpolate": "linear",
         "nodata": "",
         "dot": false,
         "ymin": "0",
         "ymax": "4",
-        "removeOlder": "8",
+        "removeOlder": "52",
         "removeOlderPoints": "",
         "removeOlderUnit": "604800",
         "cutout": 0,
@@ -362,8 +415,8 @@
         ],
         "useOldStyle": false,
         "outputs": 1,
-        "x": 894.5,
-        "y": 176.59996032714844,
+        "x": 860,
+        "y": 220,
         "wires": [
             []
         ]
@@ -377,12 +430,12 @@
         "qos": "0",
         "datatype": "auto",
         "broker": "cc35e567.9b058",
-        "x": 112.5,
-        "y": 182.39999389648438,
+        "x": 100,
+        "y": 200,
         "wires": [
             [
-                "27028abc.3d0276",
-                "48286253.ed3eec"
+                "5258430c.f58e84",
+                "ef568cf.4e5c87"
             ]
         ]
     },
@@ -391,15 +444,15 @@
         "type": "ui_text",
         "z": "2d7c70cb.16397",
         "group": "d51f7104.b5f31",
-        "order": 8,
-        "width": "4",
+        "order": 6,
+        "width": "3",
         "height": "1",
         "name": "Running for:",
         "label": "Running for:",
         "format": "{{msg.payload}}",
         "layout": "col-center",
-        "x": 882.5,
-        "y": 325.4000244140625,
+        "x": 870,
+        "y": 660,
         "wires": []
     },
     {
@@ -407,14 +460,13 @@
         "type": "function",
         "z": "2d7c70cb.16397",
         "name": "Time Diff Calc",
-        "func": "// Create a Date object from the payload and remove initial time\n// Friday, June 14, 2019 2:00:00 PM GMT+02:00\nvar date    = (msg.payload - 1560520800000) / 1000;\n\n//Truncate to int if divded by 1000 to show sec\ndate = Math.floor(date);\n\nvar seconds = parseInt((date)%60);\nvar minutes = parseInt((date/60)%60);\nvar hours   = parseInt((date/(60*60))%24);\n\nhours = (hours < 10) ? \"0\" + hours : hours;\nminutes = (minutes < 10) ? \"0\" + minutes : minutes;\nseconds = (seconds < 10) ? \"0\" + seconds : seconds;\n\nvar date_ret = hours + \":\" + minutes + \":\" + seconds;\n\nmsg.payload = date_ret;\n\nreturn msg;",
+        "func": "// Create a Date object from the payload and remove initial time\nglobal.set(\"time_now\", msg.payload);\nvar initDate = global.get(\"init_date\");\nvar date     = (msg.payload - initDate) / 1000;\n\n//Truncate to int if divded by 1000 to show sec\ndate = Math.floor(date);\n\nvar seconds = parseInt((date)%60);\nvar minutes = parseInt((date/60)%60);\nvar hours   = parseInt((date/(60*60))%24);\nvar days    = parseInt((date/(60*60*24)));\n\n//Use 2 number for time\nhours   = (hours < 10) ? \"0\" + hours : hours;\nminutes = (minutes < 10) ? \"0\" + minutes : minutes;\nseconds = (seconds < 10) ? \"0\" + seconds : seconds;\n\n//Format output\nvar date_ret = (days < 1) ? date_ret = hours + \":\" + minutes + \":\" + seconds : date_ret = days + \"d \" + hours + \":\" + minutes;\n    \nmsg.payload = date_ret;\n\nreturn msg;",
         "outputs": 1,
         "noerr": 0,
-        "x": 456.5,
-        "y": 324.79998779296875,
+        "x": 444,
+        "y": 659.3999633789062,
         "wires": [
             [
-                "85b4d927.0f19d",
                 "24fddd40.81e50a"
             ]
         ]
@@ -431,8 +483,8 @@
         "crontab": "",
         "once": false,
         "onceDelay": 0.1,
-        "x": 133.89999389648438,
-        "y": 322,
+        "x": 121.39999389648438,
+        "y": 656.5999755859375,
         "wires": [
             [
                 "402b8abd.a667d4"
@@ -444,52 +496,387 @@
         "type": "ui_text",
         "z": "2d7c70cb.16397",
         "group": "d51f7104.b5f31",
-        "order": 7,
-        "width": "4",
+        "order": 5,
+        "width": "3",
         "height": "1",
         "name": "Last seen",
         "label": "Last seen:",
         "format": "{{msg.payload}}",
         "layout": "col-center",
-        "x": 890.2000122070312,
-        "y": 237.1999969482422,
+        "x": 860,
+        "y": 320,
         "wires": []
-    },
-    {
-        "id": "48286253.ed3eec",
-        "type": "trigger",
-        "z": "2d7c70cb.16397",
-        "op1": "",
-        "op2": "",
-        "op1type": "date",
-        "op2type": "nul",
-        "duration": "250",
-        "extend": true,
-        "units": "ms",
-        "reset": "",
-        "bytopic": "all",
-        "name": "",
-        "x": 387.5,
-        "y": 237.99998474121094,
-        "wires": [
-            [
-                "f45dc394.af89b8"
-            ]
-        ]
     },
     {
         "id": "f45dc394.af89b8",
         "type": "function",
         "z": "2d7c70cb.16397",
-        "name": "Convert to String",
-        "func": "// Create a Date object from the payload\nvar date = new Date(msg.payload + 1000*60*60*2);\n\n// Adjust date format\ndate = date.toLocaleString('dk', { weekday: 'short', year: '2-digit', \n    month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit', \n    second: '2-digit'});\n\n// Change the payload to be a formatted Date string\nmsg.payload = date.toString();\n\n// Return the message so it can be sent on\nreturn msg;",
+        "name": "Epoch to String",
+        "func": "// Create a Date object from the payload\nvar ls   = global.get(\"last_seen\");\nvar date = new Date(ls+ 1000*60*60*2);\n\n// Adjust date format\ndate = date.toLocaleString('dk', { weekday: 'short', year: '2-digit', \n    month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit', \n    second: '2-digit'});\n\n// Change the payload to be a formatted Date string\nmsg.payload = date.toString();\n\n// Return the message so it can be sent on\nreturn msg;",
         "outputs": 1,
         "noerr": 0,
-        "x": 630.5,
-        "y": 238.1999969482422,
+        "x": 660,
+        "y": 320,
         "wires": [
             [
                 "2920a25f.c5a1de"
+            ]
+        ]
+    },
+    {
+        "id": "8e5f4ecc.f44f6",
+        "type": "ui_button",
+        "z": "2d7c70cb.16397",
+        "name": "Clean Graph",
+        "group": "67b8c3fe.b9597c",
+        "order": 5,
+        "width": "2",
+        "height": "1",
+        "passthru": false,
+        "label": "Clear",
+        "tooltip": "",
+        "color": "",
+        "bgcolor": "",
+        "icon": "delete",
+        "payload": "[]",
+        "payloadType": "json",
+        "topic": "",
+        "x": 90,
+        "y": 460,
+        "wires": [
+            [
+                "2a84ccda.f867c4",
+                "86988fcf.bd7a"
+            ]
+        ]
+    },
+    {
+        "id": "52bc3e10.595a28",
+        "type": "ui_template",
+        "z": "2d7c70cb.16397",
+        "group": "67b8c3fe.b9597c",
+        "name": "MoreE Logo",
+        "order": 1,
+        "width": "0",
+        "height": "0",
+        "format": "<div ng-bind-html=\"msg.payload\"></div>\n<img src=\"https://moreelectronics.dk/wp-content/uploads/2018/07/ME-logo-top.png\" style=\"width:145px;height:100%;\">",
+        "storeOutMessages": false,
+        "fwdInMessages": false,
+        "templateScope": "local",
+        "x": 448.8888626098633,
+        "y": 596.6666555404663,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "30b3f32d.0bfb24",
+        "type": "cloudant out",
+        "z": "2d7c70cb.16397",
+        "name": "Batt store",
+        "cloudant": "",
+        "database": "battery",
+        "service": "MoreElectronics-cloudantNoSQLDB",
+        "payonly": false,
+        "operation": "insert",
+        "x": 509.2777862548828,
+        "y": 152.68888568878174,
+        "wires": []
+    },
+    {
+        "id": "70e3ba20.4ad88c",
+        "type": "cloudant in",
+        "z": "2d7c70cb.16397",
+        "name": "Get from Database",
+        "cloudant": "",
+        "database": "battery",
+        "service": "MoreElectronics-cloudantNoSQLDB",
+        "search": "_all_",
+        "design": "",
+        "index": "",
+        "x": 510,
+        "y": 220,
+        "wires": [
+            [
+                "3f1c3f98.c35a7"
+            ]
+        ]
+    },
+    {
+        "id": "1348f1f6.bcb1ce",
+        "type": "ui_template",
+        "z": "2d7c70cb.16397",
+        "group": "d51f7104.b5f31",
+        "name": "WebCam Pic",
+        "order": 1,
+        "width": "0",
+        "height": "0",
+        "format": "<!-- or use the image preview instead > -->\n<img src=\"https://images.webcams.travel/preview/1511514946.jpg\" style=\"height:100%;\">\n\n<!-- <a name=\"lkr-timelapse-player\" data-id=\"1511514946\" data-play=\"day\" href=\"https://lookr.com/1511514946\" target=\"_blank\">Copenhagen: Radisson Blu Scandinavia Hotel</a><script async type=\"text/javascript\" src=\"https://api.lookr.com/embed/script/player.js\"></script> -->",
+        "storeOutMessages": false,
+        "fwdInMessages": false,
+        "templateScope": "local",
+        "x": 870,
+        "y": 741,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "5258430c.f58e84",
+        "type": "change",
+        "z": "2d7c70cb.16397",
+        "name": "Add Timestamp",
+        "rules": [
+            {
+                "t": "set",
+                "p": "time",
+                "pt": "msg",
+                "to": "",
+                "tot": "date"
+            },
+            {
+                "t": "delete",
+                "p": "topic",
+                "pt": "msg"
+            },
+            {
+                "t": "delete",
+                "p": "_msgid",
+                "pt": "msg"
+            },
+            {
+                "t": "delete",
+                "p": "qos",
+                "pt": "msg"
+            },
+            {
+                "t": "delete",
+                "p": "retain",
+                "pt": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 329.2777862548828,
+        "y": 152.68888568878174,
+        "wires": [
+            [
+                "30b3f32d.0bfb24"
+            ]
+        ]
+    },
+    {
+        "id": "c9c45259.dd0b8",
+        "type": "link in",
+        "z": "2d7c70cb.16397",
+        "name": "clean_in",
+        "links": [
+            "2a84ccda.f867c4"
+        ],
+        "x": 655.5555419921875,
+        "y": 150,
+        "wires": [
+            [
+                "27028abc.3d0276"
+            ]
+        ]
+    },
+    {
+        "id": "2a84ccda.f867c4",
+        "type": "link out",
+        "z": "2d7c70cb.16397",
+        "name": "clean_out",
+        "links": [
+            "c9c45259.dd0b8"
+        ],
+        "x": 223.88888931274414,
+        "y": 526.6666622161865,
+        "wires": []
+    },
+    {
+        "id": "ef568cf.4e5c87",
+        "type": "trigger",
+        "z": "2d7c70cb.16397",
+        "op1": "",
+        "op2": "0",
+        "op1type": "nul",
+        "op2type": "json",
+        "duration": "1",
+        "extend": true,
+        "units": "s",
+        "reset": "",
+        "bytopic": "all",
+        "name": "",
+        "x": 300,
+        "y": 220,
+        "wires": [
+            [
+                "70e3ba20.4ad88c"
+            ]
+        ]
+    },
+    {
+        "id": "3f1c3f98.c35a7",
+        "type": "function",
+        "z": "2d7c70cb.16397",
+        "name": "Sort Cloudant and format data",
+        "func": "// Sort cloudant data by epoch time ascending\nmsg.payload.sort((a, b) => (a.time > b.time) ? 1 : -1)\n\n// Format data as chart.js\nvar chart = [{\n    \"series\":   [\"Battery\"],\n    \"data\":     [[{ }]],\n    \"labels\":   [\"\"]\n}];\n\nfor (var i = 0; i < msg.payload.length; i++)\n{\n    chart[0].data[0][i] = {\n        x: msg.payload[i].time,\n        y: msg.payload[i].payload\n    };\n}\n\n// Set the last seen time from the database.\nglobal.set(\"last_seen\", msg.payload[msg.payload.length-1].time);\n\n// Catch initial online time\nvar timeNow  = global.get(\"time_now\");\nvar initDate = global.get(\"init_date\");\nif( timeNow - msg.payload[msg.payload.length-1].time > 60*60*1000)\n{\n    node.error(\"Offiline for too long\");\n    global.set(\"init_date\",0);\n}\nelse if ( initDate===0 || initDate===undefined )\n{\n    node.warn(\"Reset initial time to now\");\n    global.set(\"init_date\", msg.payload[msg.payload.length-1].time);\n}\n\n// Return formated data as the msg.payload\nmsg.payload = chart;\n\nreturn msg;\n",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 390,
+        "y": 300,
+        "wires": [
+            [
+                "27028abc.3d0276",
+                "f45dc394.af89b8"
+            ]
+        ]
+    },
+    {
+        "id": "5af099b3.4f92c8",
+        "type": "inject",
+        "z": "2d7c70cb.16397",
+        "name": "\"watchdog\"",
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "repeat": "3600",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "x": 105.55554962158203,
+        "y": 280.0000162124634,
+        "wires": [
+            [
+                "ef568cf.4e5c87"
+            ]
+        ]
+    },
+    {
+        "id": "4c5e695e.608ec",
+        "type": "cloudant in",
+        "z": "2d7c70cb.16397",
+        "name": "Get from Database",
+        "cloudant": "",
+        "database": "battery",
+        "service": "MoreElectronics-cloudantNoSQLDB",
+        "search": "_all_",
+        "design": "",
+        "index": "",
+        "x": 519.9999389648438,
+        "y": 438.88888454437256,
+        "wires": [
+            [
+                "2a1890ba.6e2978"
+            ]
+        ]
+    },
+    {
+        "id": "86988fcf.bd7a",
+        "type": "trigger",
+        "z": "2d7c70cb.16397",
+        "op1": "",
+        "op2": "true",
+        "op1type": "nul",
+        "op2type": "bool",
+        "duration": "100",
+        "extend": true,
+        "units": "ms",
+        "reset": "",
+        "bytopic": "all",
+        "name": "",
+        "x": 296.6666488647461,
+        "y": 438.8888874053955,
+        "wires": [
+            [
+                "4c5e695e.608ec"
+            ]
+        ]
+    },
+    {
+        "id": "7607b814.da3e78",
+        "type": "catch",
+        "z": "2d7c70cb.16397",
+        "name": "",
+        "scope": null,
+        "uncaught": false,
+        "x": 80,
+        "y": 380,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "2719ddfa.c53f7a",
+        "type": "e-mail",
+        "z": "2d7c70cb.16397",
+        "server": "smtp.gmail.com",
+        "port": "587",
+        "secure": true,
+        "tls": true,
+        "name": "l.bispo@live.com",
+        "dname": "",
+        "x": 270,
+        "y": 380,
+        "wires": []
+    },
+    {
+        "id": "2dc72f97.1996e",
+        "type": "openweathermap in",
+        "z": "2d7c70cb.16397",
+        "name": "CPH Forecast",
+        "wtype": "current",
+        "lon": "",
+        "lat": "",
+        "city": "Copenhagen",
+        "country": "Denmark",
+        "language": "en",
+        "x": 110,
+        "y": 740,
+        "wires": [
+            [
+                "f5533338.5f528",
+                "ea641cd.ab504e",
+                "1348f1f6.bcb1ce"
+            ]
+        ]
+    },
+    {
+        "id": "2a1890ba.6e2978",
+        "type": "function",
+        "z": "2d7c70cb.16397",
+        "name": "bulk delete function",
+        "func": "var count = msg.payload.length;\nvar list = [];\nfor (i=0;i<count;i++) {\nlist.push({\n        _id: msg.payload[i]._id,\n        _rev: msg.payload[i]._rev,\n        _deleted: true\n    });\n}\n\nif (i === 0) {\nmsg.payload = \"No documents were found.  The database is empty!\";\nreturn [null, msg];\n}\n\nmsg.payload = {\n                \"docs\": \n                list\n               }\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 520,
+        "y": 505.5555419921875,
+        "wires": [
+            [
+                "559cc883.8d70f"
+            ]
+        ]
+    },
+    {
+        "id": "559cc883.8d70f",
+        "type": "http request",
+        "z": "2d7c70cb.16397",
+        "name": "delete inputs on database",
+        "method": "POST",
+        "ret": "obj",
+        "paytoqs": false,
+        "url": "https://9b7d06ee-eaf1-4273-ae98-c22461dbf1c9-bluemix.cloudantnosqldb.appdomain.cloud/battery/_bulk_docs",
+        "tls": "",
+        "proxy": "",
+        "authType": "bearer",
+        "x": 797.333309173584,
+        "y": 505.22223472595215,
+        "wires": [
+            [
+                "85b4d927.0f19d"
             ]
         ]
     }

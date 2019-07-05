@@ -31,21 +31,18 @@ extern "C" {
 
 // Enable Debug interface and serial prints over UART1
 #define DEGUB_NINA
-
-//#define WIFI_SSID     "Olive pa Stranden"
-//#define WIFI_PASSWORD "Lickingp4w"
-#define WIFI_SSID     "MoreEGuest"
-#define WIFI_PASSWORD "18electronics"
-#define MQTT_HOST     "m24.cloudmqtt.com"
-#define MQTT_PORT     17603
-#define USERNAME      "qvpgdxqg"
-#define PASSWORD      "YVTESIVDgHlN"
+#define WIFI_SSID     ""
+#define WIFI_PASSWORD ""
+#define MQTT_HOST     ""
+#define MQTT_PORT     666
+#define USERNAME      ""
+#define PASSWORD      ""
 
 // Connection timeout, if too high capacitor may discharge before connecting Bt(seconds) = [C(Vcapmax - Vcapmin)/I]
-#define CON_TIMEOUT   30*1000                     // milliseconds
+#define CON_TIMEOUT   10*1000                     // milliseconds
 
 // Not using Deep Sleep on PCB because TPL5110 timer takes over.
-#define TIME_TO_SLEEP 0.5*60*1000*1000            // microseconds
+#define TIME_TO_SLEEP 50*60*1000*1000            // microseconds
 
 /******************     EVK-NINA-W10 PIN Definition      ************************************
  * .platformio\packages\framework-arduinoespressif32\variants\nina_w10
@@ -273,4 +270,17 @@ void connectWiFi() {
 void connectMQTT() {
   DBG_NINA("Connecting to MQTT...");
   mqttClient.connect();
+
+  while( !mqttClient.connected() && millis() < CON_TIMEOUT )
+  {
+    delay(250);
+    Serial.print(".");
+  }
+
+  if( !mqttClient.connected() )
+  {
+    DBG_NINA("Failed to connect to MQTT Broker");
+    deep_sleep();
+  }
+
 }
