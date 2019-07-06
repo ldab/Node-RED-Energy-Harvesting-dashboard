@@ -109,6 +109,12 @@ You will find the flow.json [here](./Node-RED%20flow/flows.json).
 
 ![Node-RED Flow](./pics/screenshot.png)
 
+### Cloudant Credentials for cleaning database
+
+* Generally Cloudant autheticate via IBM cloud therefore we need to create new Credentials and use the username and password for authentication on the `delet inputs on database` node.
+
+![IBM Cloudant Credentials](./pics/credentials.png)
+
 ## OpenWeatherMap API
 
 * In order to get the weather forecast information for the OpenWeatherMap node, you will need to get your API at [https://openweathermap.org/api](https://openweathermap.org/api)
