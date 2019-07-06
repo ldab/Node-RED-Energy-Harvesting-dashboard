@@ -726,7 +726,7 @@
         "type": "function",
         "z": "2d7c70cb.16397",
         "name": "Sort Cloudant and format data",
-        "func": "// Sort cloudant data by epoch time ascending\nmsg.payload.sort((a, b) => (a.time > b.time) ? 1 : -1)\n\n// Format data as chart.js\nvar chart = [{\n    \"series\":   [\"Battery\"],\n    \"data\":     [[{ }]],\n    \"labels\":   [\"\"]\n}];\n\nfor (var i = 0; i < msg.payload.length; i++)\n{\n    chart[0].data[0][i] = {\n        x: msg.payload[i].time,\n        y: msg.payload[i].payload\n    };\n}\n\n// Set the last seen time from the database.\nglobal.set(\"last_seen\", msg.payload[msg.payload.length-1].time);\n\n// Catch initial online time\nvar timeNow  = global.get(\"time_now\");\nvar initDate = global.get(\"init_date\");\nvar newTime  = null;\nif( timeNow - msg.payload[msg.payload.length-1].time > 60*60*1000)\n{\n    node.warn(\"Offiline for too long\");\n    global.set(\"init_date\", undefined);\n}\nelse if ( initDate===undefined )\n{\n    var resetTime = msg.payload[msg.payload.length-1].time;\n    node.warn(\"Reset initial time to now\");\n    global.set(\"init_date\", resetTime);\n    newTime = { payload : resetTime };\n}\n\n// Return formated data as the msg.payload\nmsg.payload = chart;\n\nreturn [msg, newTime];\n",
+        "func": "// Sort cloudant data by epoch time ascending\nmsg.payload.sort((a, b) => (a.time > b.time) ? 1 : -1)\n\n// Format data as chart.js\nvar chart = [{\n    \"series\":   [\"Battery\"],\n    \"data\":     [[{ }]],\n    \"labels\":   [\"\"]\n}];\n\nfor (var i = 0; i < msg.payload.length; i++)\n{\n    chart[0].data[0][i] = {\n        x: msg.payload[i].time,\n        y: msg.payload[i].payload\n    };\n}\n\n// Set the last seen time from the database.\nvar lastSeen = msg.payload[msg.payload.length-1].time;\nglobal.set(\"last_seen\", lastSeen);\n\n// Catch initial online time\nvar timeNow  = global.get(\"time_now\");\nvar initDate = global.get(\"init_date\");\nvar newTime  = null;\nif( timeNow - lastSeen > 60*60*1000 )\n{\n    node.warn(\"Offiline for too long, reset Online from\");\n    \n    global.set(\"init_date\", lastSeen);\n    newTime = { payload : lastSeen };\n}\n\n// Return formated data as the msg.payload\nmsg.payload = chart;\n\nreturn [msg, newTime];\n",
         "outputs": 2,
         "noerr": 0,
         "x": 390,
@@ -908,11 +908,11 @@
         "id": "21a1a942.9861f6",
         "type": "function",
         "z": "2d7c70cb.16397",
-        "name": "Clean or Set DB",
-        "func": "var timenow = global.get(\"time_now\");\nvar length  = msg.payload.length\nvar clean   = ( length<1 ) ? false : true;\nvar list    = [];\n\nif( clean === true)\n{\n    node.warn(\"Clean DB\");\n    \n    global.set(\"init_date\", msg.payload[length-1].payload);\n    msg.payload.sort((a, b) => (a.time > b.time) ? 1 : -1)\n    //scan _rev and _id\n    for(var i=0; i<length-1; i++)\n    {\n        list[i]={\n            _id: msg.payload[i]._id,\n            _rev: msg.payload[i]._rev\n        };\n    }\n    msg.payload = list;\n    return [msg, null];\n}\nelse\n{\n    /*node.warn(\"set new timenow due empty DB\");\n    global.set(\"init_date\", timenow);\n    msg.payload = timenow;\n    return [null, msg];*/\n}\n",
+        "name": "Clean or Set Time",
+        "func": "var timenow = global.get(\"time_now\");\nvar length  = msg.payload.length\nvar list    = [];\n\nif( length>=1 )\n{\n    node.warn(\"Clean DB\");\n    \n    msg.payload.sort((a, b) => (a.time > b.time) ? 1 : -1);\n    global.set(\"init_date\", msg.payload[length-1].payload);\n    //scan _rev and _id\n    for(var i=0; i<length-1; i++)\n    {\n        list[i]={\n            _id: msg.payload[i]._id,\n            _rev: msg.payload[i]._rev\n        };\n    }\n    msg.payload = list;\n    return [msg, null];\n}\n",
         "outputs": 2,
         "noerr": 0,
-        "x": 512,
+        "x": 508,
         "y": 721,
         "wires": [
             [
