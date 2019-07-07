@@ -167,5 +167,10 @@ You will find the flow.json [here](./Node-RED%20flow/flows.json).
 
 ## Credits
 
-Github Shields and Badges created with [Shields.io](https://github.com/badges/shields/)
+GitHub Shields and Badges created with [Shields.io](https://github.com/badges/shields/)
+
+Weather information from [OpenWeatherMap](https://openweathermap.org)
+
+Webcam picture from [webcam.travel](https://www.webcams.travel)
+
 Adafruit HTU21D GitHub [Library](https://github.com/adafruit/Adafruit_HTU21DF_Library)

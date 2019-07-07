@@ -460,7 +460,7 @@
         "type": "function",
         "z": "2d7c70cb.16397",
         "name": "Time Diff Calc",
-        "func": "// Create a Date object from the payload and remove initial time\nglobal.set(\"time_now\", msg.payload);\nvar initDate = global.get(\"init_date\");\nvar timeDif  = (msg.payload - initDate) / 1000;\n\n//Truncate to int if divded by 1000 to show sec\ntimeDif = Math.floor(timeDif);\n\nvar seconds = parseInt((timeDif)%60);\nvar minutes = parseInt((timeDif/60)%60);\nvar hours   = parseInt((timeDif/(60*60))%24);\nvar days    = parseInt((timeDif/(60*60*24)));\n\n//Use 2 number for time\nhours   = (hours < 10) ? \"0\" + hours : hours;\nminutes = (minutes < 10) ? \"0\" + minutes : minutes;\nseconds = (seconds < 10) ? \"0\" + seconds : seconds;\n\n//Format output\nvar date_ret = (days < 1) ? date_ret = hours + \":\" + minutes + \":\" + seconds : date_ret = days + \"d \" + hours + \":\" + minutes;\n    \nmsg.payload = isNaN(seconds) ? \"not online yet\" : date_ret;\n\n// Check if initial time is set\nvar initValid = (initDate===undefined) ? { payload: true } : null;\n\nreturn [msg, initValid];",
+        "func": "// Create a Date object from the payload and remove initial time\nglobal.set(\"time_now\", msg.payload);\nvar initDate = global.get(\"init_date\");\nvar timeDif  = (msg.payload - initDate) / 1000;\n\n//Truncate to int if divded by 1000 to show sec\ntimeDif = Math.floor(timeDif);\n\nvar seconds = parseInt((timeDif)%60);\nvar minutes = parseInt((timeDif/60)%60);\nvar hours   = parseInt((timeDif/(60*60))%24);\nvar days    = parseInt((timeDif/(60*60*24)));\n\n//Use 2 number for time\nhours   = (hours < 10) ? \"0\" + hours : hours;\nminutes = (minutes < 10) ? \"0\" + minutes : minutes;\nseconds = (seconds < 10) ? \"0\" + seconds : seconds;\n\n//Format output\nvar date_ret = (days < 1) ? date_ret = hours + \":\" + minutes + \":\" + seconds : date_ret = days + \"d \" + hours + \":\" + minutes;\n\nif( isNaN(seconds) )\n    msg.payload = \"not online yet\";\nelse if( initDate == -1 )\n    msg.payload = \"Offline\";\nelse\n    msg.payload = date_ret;\n\n// Check if initial time is set\nvar initValid = (initDate===undefined) ? { payload: true } : null;\n\nreturn [msg, initValid];",
         "outputs": 2,
         "noerr": 0,
         "x": 333,
@@ -726,7 +726,7 @@
         "type": "function",
         "z": "2d7c70cb.16397",
         "name": "Sort Cloudant and format data",
-        "func": "// Sort cloudant data by epoch time ascending\nmsg.payload.sort((a, b) => (a.time > b.time) ? 1 : -1)\n\n// Format data as chart.js\nvar chart = [{\n    \"series\":   [\"Battery\"],\n    \"data\":     [[{ }]],\n    \"labels\":   [\"\"]\n}];\n\nfor (var i = 0; i < msg.payload.length; i++)\n{\n    chart[0].data[0][i] = {\n        x: msg.payload[i].time,\n        y: msg.payload[i].payload\n    };\n}\n\n// Set the last seen time from the database.\nvar lastSeen = msg.payload[msg.payload.length-1].time;\nglobal.set(\"last_seen\", lastSeen);\n\n// Catch initial online time\nvar timeNow  = global.get(\"time_now\");\nvar initDate = global.get(\"init_date\");\nvar newTime  = null;\nif( timeNow - lastSeen > 60*60*1000 )\n{\n    node.warn(\"Offiline for too long, reset Online from\");\n    \n    global.set(\"init_date\", lastSeen);\n    newTime = { payload : lastSeen };\n}\n\n// Return formated data as the msg.payload\nmsg.payload = chart;\n\nreturn [msg, newTime];\n",
+        "func": "// Sort cloudant data by epoch time ascending\nmsg.payload.sort((a, b) => (a.time > b.time) ? 1 : -1)\n\n// Format data as chart.js\nvar chart = [{\n    \"series\":   [\"Battery\"],\n    \"data\":     [[{ }]],\n    \"labels\":   [\"\"]\n}];\n\nfor (var i = 0; i < msg.payload.length; i++)\n{\n    chart[0].data[0][i] = {\n        x: msg.payload[i].time,\n        y: msg.payload[i].payload\n    };\n}\n\n// Set the last seen time from the database.\nvar lastSeen = msg.payload[msg.payload.length-1].time;\nglobal.set(\"last_seen\", lastSeen);\n\n// Catch initial online time\nvar timeNow  = global.get(\"time_now\");\nvar initDate = global.get(\"init_date\");\nvar newTime  = null;\nif( timeNow - lastSeen > 60*60*1000 )\n{\n    node.warn(\"Offiline for too long\");\n    global.set(\"init_date\", -1);\n}\nelse if( initDate == -1 )\n{\n    node.warn(\"Online, reset initial time\");\n    global.set( \"init_date\", lastSeen );\n    newTime = { payload : lastSeen };\n}\n\n// Return formated data as the msg.payload\nmsg.payload = chart;\n\nreturn [msg, newTime];\n",
         "outputs": 2,
         "noerr": 0,
         "x": 390,
@@ -737,8 +737,7 @@
                 "f45dc394.af89b8"
             ],
             [
-                "96ee4015.46884",
-                "85b4d927.0f19d"
+                "96ee4015.46884"
             ]
         ]
     },
@@ -813,7 +812,9 @@
         "x": 80,
         "y": 380,
         "wires": [
-            []
+            [
+                "2719ddfa.c53f7a"
+            ]
         ]
     },
     {
@@ -821,9 +822,9 @@
         "type": "e-mail",
         "z": "2d7c70cb.16397",
         "server": "smtp.gmail.com",
-        "port": "587",
+        "port": "465",
         "secure": true,
-        "tls": true,
+        "tls": false,
         "name": "l.bispo@live.com",
         "dname": "",
         "x": 270,
@@ -909,7 +910,7 @@
         "type": "function",
         "z": "2d7c70cb.16397",
         "name": "Clean or Set Time",
-        "func": "var timenow = global.get(\"time_now\");\nvar length  = msg.payload.length\nvar list    = [];\n\nif( length>=1 )\n{\n    node.warn(\"Clean DB\");\n    \n    msg.payload.sort((a, b) => (a.time > b.time) ? 1 : -1);\n    global.set(\"init_date\", msg.payload[length-1].payload);\n    //scan _rev and _id\n    for(var i=0; i<length-1; i++)\n    {\n        list[i]={\n            _id: msg.payload[i]._id,\n            _rev: msg.payload[i]._rev\n        };\n    }\n    msg.payload = list;\n    return [msg, null];\n}\n",
+        "func": "var timenow = global.get(\"time_now\");\nvar length  = msg.payload.length\nvar list    = [];\n\nif( length>=1 )\n{\n    node.warn(\"Clean DB\");\n    \n    msg.payload.sort((a, b) => (a.time > b.time) ? 1 : -1);\n    global.set(\"init_date\", msg.payload[length-1].payload);\n    //scan _rev and _id\n    for(var i=0; i<length-1; i++)\n    {\n        list[i]={\n            _id: msg.payload[i]._id,\n            _rev: msg.payload[i]._rev\n        };\n    }\n    msg.payload = list;\n    return [msg, null];\n}\nelse\n    global.set(\"init_date\", -1);\n",
         "outputs": 2,
         "noerr": 0,
         "x": 508,
@@ -945,8 +946,8 @@
         "service": "MoreElectronics-cloudantNoSQLDB",
         "payonly": false,
         "operation": "delete",
-        "x": 810,
-        "y": 690,
+        "x": 850,
+        "y": 700,
         "wires": []
     },
     {
@@ -960,8 +961,8 @@
         "arraySpltType": "len",
         "stream": false,
         "addname": "",
-        "x": 678,
-        "y": 690,
+        "x": 710,
+        "y": 700,
         "wires": [
             [
                 "3c24d288.1b5a5e"
