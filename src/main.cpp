@@ -42,7 +42,7 @@ extern "C" {
 #define CON_TIMEOUT   10*1000                     // milliseconds
 
 // Not using Deep Sleep on PCB because TPL5110 timer takes over.
-#define TIME_TO_SLEEP 50*60*1000*1000            // microseconds
+#define TIME_TO_SLEEP (uint64_t)50*60*1000*1000   // microseconds
 
 /******************     EVK-NINA-W10 PIN Definition      ************************************
  * .platformio\packages\framework-arduinoespressif32\variants\nina_w10
@@ -199,7 +199,8 @@ void setup()
   if ( !htu.begin() )
   {
     DBG_NINA("Couldn't find sensor!");
-    while (1);
+    delay( 500 );
+    deep_sleep();
   }
 
   connectWiFi();
@@ -253,6 +254,7 @@ void connectWiFi() {
   {
     RGB_off();
     statusLED = LED_RED;
+    delay( 600 );
     deep_sleep();
   }
 
