@@ -36,4 +36,5 @@ install:
     - platformio lib -g install 566 346
 
 script:
-    - platformio ci --board=nina_w10
+    - pio run
+    #- platformio ci --board=nina_w10

@@ -19,12 +19,13 @@ Node-RED Energy Harvesting dashboard example, weather forecast, temperature and 
 5. [IBM Node-RED Hosting](/README.md#IBM-Node-RED-Hosting)
 6. [Node-RED Flow](/README.md#Node-RED-Flow)
 7. [OpenWeatherMap API](/README.md#OpenWeatherMap-API)
-8. [Calibrating ADC for ESP32](/README.md#Calibrating-ADC-for-ESP32)
-9. [Partition Table and Flash size](/README.md#Partition-Table-and-Flash-size)
-10. [Erase Flash](/README.md#Erase-Flash)
-11. [PCB](/README.md#PCB)
-12. [BOM](/README.md#BOM)
-13. [Credits](/README.md#Credits)
+8. [Node-RED Notification](/README.md#Node-RED-Notification)
+9. [Calibrating ADC for ESP32](/README.md#Calibrating-ADC-for-ESP32)
+10. [Partition Table and Flash size](/README.md#Partition-Table-and-Flash-size)
+11. [Erase Flash](/README.md#Erase-Flash)
+12. [PCB](/README.md#PCB)
+13. [BOM](/README.md#BOM)
+14. [Credits](/README.md#Credits)
 
 ## How to build PlatformIO based project
 
@@ -134,6 +135,28 @@ You will find the flow.json [here](./Node-RED%20flow/flows.json).
   "cod":200
 }
 ```
+
+## Node-RED Notification
+
+* Via the `catch` node, you can enable notification, for your phone for example. Below I have quickly show few options:
+
+1. Email
+
+  * Use the `email` output, configured with your email provider info;
+
+2. PushSafer
+
+  * Offers several customizations, sound, vibration, icons, etc:
+  * GET request url: `https://www.pushsafer.com/api?k=YOURKEY&c=%23ff0000&v=1&a=1&m={{payload}}`
+
+5. Twilio SMS
+
+  * SMS API, built-in to the Node-RED and IBM example;
+
+6. IFTT
+
+  * If this than that, with android and iOS apps can be accesible via webhooks;
+  * GET `https://maker.ifttt.com/trigger/YOUR_EVENT/with/key/YOUR_KEY?value1=MESSAGE`
 
 ## Calibrating ADC for ESP32
 
