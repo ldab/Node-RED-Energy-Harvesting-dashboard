@@ -24,7 +24,7 @@ Node-RED Energy Harvesting dashboard example, weather forecast, temperature and 
 10. [Partition Table and Flash size](/README.md#Partition-Table-and-Flash-size)
 11. [Erase Flash](/README.md#Erase-Flash)
 12. [PCB](/README.md#PCB)
-13. [BOM](/README.md#BOM)
+13. [Final Thoughts or Improvements](/README.md#Final-Thoughts-or-Impovements)
 14. [Credits](/README.md#Credits)
 
 ## How to build PlatformIO based project
@@ -182,11 +182,27 @@ You will find the flow.json [here](./Node-RED%20flow/flows.json).
 
 ![3D board u-blox E-PEAS](./pics/MoreE%20u-blox%20E-PEAS.png)
 
-![Schematic u-blox E-PEAS](./extras/schematic.pdf)
+### Schematic
 
-## BOM
+<img src="./extras/schematic1.svg" alt="u-blox E-PEAS" width="50%"> 
 
-![BOM u-blox E-PEAS](./extras/BOM.csv)
+<img src="./extras/schematic2.svg" alt="u-blox E-PEAS" width="50%"> 
+
+### Enclosure
+
+<img src="./extras/enclosure.png" alt="u-blox E-PEAS" width="50%"> 
+
+### BOM
+
+[BOM u-blox E-PEAS](./extras/BOM.csv)
+
+<img src="./extras/BOM.png" alt="u-blox E-PEAS" width="50%"> 
+
+## Final Thoughts or Improvements
+
+* Use 3.0V LDO, HT7830;
+* Replace LDO for a smaller drop-out voltage or lower power-down current;
+* Use a Buck/Boost converter instead of LDO in order to discharge super cap until 2.8V;
 
 ## Credits
 
