@@ -29,30 +29,14 @@ Node-RED Energy Harvesting dashboard example, weather forecast, temperature and 
 
 ## How to build PlatformIO based project
 
-1. [Install PlatformIO Core](http://docs.platformio.org/page/core.html)
-2. Download [development the repository with examples](https://github.com/ldab/Node-RED-Energy-Harvesting-dashboard)
-3. Extract ZIP archive
-4. Run these commands:
+* More information can be found on their comprehensive [Docs](https://docs.platformio.org/en/latest/ide/vscode.html). But Basically:
 
-```
-# Change directory to example
-> cd Node-RED-Energy-Harvesting-dashboard
+  0. Download and install official Microsoft Visual Studio Code. PlatformIO IDE is built on top of it
+  1. **Open** VSCode Package Manager
+  2. **Search** for official `platformio-ide` [extension](https://marketplace.visualstudio.com/items?itemName=platformio.platformio-ide)
+  3. **Install** PlatformIO IDE.
 
-# Build project
-> platformio run
-
-# Upload firmware
-> platformio run --target upload
-
-# Build specific environment
-> platformio run -e nina_W10
-
-# Upload firmware for the specific environment
-> platformio run -e nina_W10 --target upload
-
-# Clean build files
-> platformio run --target clean
-```
+![PlatformIO installation](https://docs.platformio.org/en/latest/_images/platformio-ide-vscode-pkg-installer.png)
 
 ## TODO
 
@@ -190,7 +174,7 @@ You will find the flow.json [here](./Node-RED%20flow/flows.json).
 
 ### Enclosure
 
-<img src="./extras/enclosure.png" alt="u-blox E-PEAS" width="50%"> 
+<img src="./pics/enclosure.png" alt="u-blox E-PEAS" width="50%"> 
 
 ### BOM
 
