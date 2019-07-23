@@ -40,7 +40,7 @@ Node-RED Energy Harvesting dashboard example, weather forecast, temperature and 
 
 ## TODO
 
-- [ ] More detailed IBM deploy;
+- [x] More detailed IBM deploy;
 - [ ] Details on the flows;
 - [x] Node to be installed;
 - [ ] Energy Harvesting details;
@@ -79,6 +79,20 @@ The MQTT Broker used is [CloudMQTT](https://www.cloudmqtt.com/) they offer Free 
 The process was a bit tedious and took a while to get it properly running as of today (2019/06/15) the information provided on the tutorial had few broken links.
 
 [https://nodered.org/docs/platforms/bluemix](https://nodered.org/docs/platforms/bluemix)
+
+1. Sign-up/Log in to [https://cloud.ibm.com/](https://cloud.ibm.com/);
+2. Using the top search bar, search for `Node-RED Starter`;
+3. Fill the required fields, `App name`, `Host name`, etc...
+4. Select `Lite` for `SDK for Node.js` and `Cloudant`, those are free, you can upgrade later if required;
+5. Click `Create` at the bottom right, the circle will spin, take few seconds;
+6. You will be redirected to the next page and should see `running` when everything is ready for use:
+
+![IBM Cloud Start](./pics/ibmcloud.png)
+
+7. Go to your App URL, something like [http://AppName.eu-gb.mybluemix.net](http://AppName.eu-gb.mybluemix.net) and complete the initial set-up;
+8. The Node-Red GUI Flow Editor is available at [http://AppName.eu-gb.mybluemix.net/red](http://AppName.eu-gb.mybluemix.net/red)
+
+* After installing the Node desbribed below, Your Node-red Dashboard is available at [http://AppName.eu-gb.mybluemix.net/ui](http://AppName.eu-gb.mybluemix.net/ui)
 
 ## Node-RED Flow
 
