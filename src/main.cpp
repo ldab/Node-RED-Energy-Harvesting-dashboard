@@ -34,7 +34,7 @@ extern "C" {
 #define WIFI_SSID     ""
 #define WIFI_PASSWORD ""
 #define MQTT_HOST     ""
-#define MQTT_PORT     666
+#define MQTT_PORT     17603
 #define USERNAME      ""
 #define PASSWORD      ""
 
@@ -61,8 +61,8 @@ SCL       = 13;
 
 // Re-assign pins for PCB.
 
-#define _SDA          22
-#define _SCL          21
+#define _SDA          21
+#define _SCL          22
 #define RGB_R         33
 #define RGB_G         25
 #define RGB_B         26
@@ -96,13 +96,13 @@ void deep_sleep ( void );
 float t = NAN;
 float h = NAN;
 
-uint8_t statusLED = LED_BLUE;
+uint8_t statusLED = RGB_B;
 
 void RGB_off( void )
 {
-  digitalWrite( LED_RED  , HIGH );
-  digitalWrite( LED_GREEN, HIGH );
-  digitalWrite( LED_BLUE , HIGH );
+  digitalWrite( RGB_R, LOW );
+  digitalWrite( RGB_G, LOW );
+  digitalWrite( RGB_B, LOW );
 }
 
 void onMqttConnect(bool sessionPresent)
@@ -127,16 +127,19 @@ void onMqttConnect(bool sessionPresent)
   delay(200);
 
   adc1_config_width( ADC_WIDTH_BIT_11 );                          // Reduce ADC resolution due to reported noise on 12 bits
-  adc1_config_channel_atten( ADC1_CHANNEL_0, ADC_ATTEN_DB_6 );    // - 6dB attenuation (ADC_ATTEN_DB_6) gives full-scale voltage 2.2V
+  adc1_config_channel_atten( ADC1_CHANNEL_0, ADC_ATTEN_DB_11 );   // -11dB attenuation (ADC_ATTEN_DB_11) gives full-scale voltage 3.6V
 
   esp_adc_cal_characteristics_t *adc_chars = new esp_adc_cal_characteristics_t;
-  esp_adc_cal_characterize(ADC_UNIT_1, ADC_ATTEN_DB_6, ADC_WIDTH_BIT_11, 1105, adc_chars);  // rout vRef in order to calibrate: 
+  esp_adc_cal_characterize(ADC_UNIT_1, ADC_ATTEN_DB_11, ADC_WIDTH_BIT_11, 1089, adc_chars);  // rout vRef in order to calibrate: 
 
-  uint32_t batt = adc1_get_raw( ADC1_CHANNEL_0 );
-  batt          = esp_adc_cal_raw_to_voltage(batt, adc_chars);
+  // Average and smooth ADC
+  int batt = 0;
+  uint8_t i = 0;
+  for( i = 0; i < 5; i++)
+    batt += adc1_get_raw( ADC1_CHANNEL_0 );
 
   // Publish Battery
-  float b  = batt * 2 / 1000.0f;
+  float b  = (float)batt/i * 2 * 3.6 / 2048;
   String b_string = String( b, 2 );
   DBG_NINA( "Battery = " + b_string + "V");
   const char* b_send = b_string.c_str();
@@ -150,18 +153,18 @@ void onMqttConnect(bool sessionPresent)
     DBG_NINA( "Sending Failed!" );
   }
 
+  deep_sleep();
+}
+
+void deep_sleep()
+{
   // Send DONE to TPL5110 and go to sleep
   pinMode( DONE, OUTPUT );
   digitalWrite( DONE, HIGH );
 
   // Keep deep sleep as sanity check in case it fails to detect DONE.
-  delay( 100 );
-  deep_sleep();
+  delay( 1000 );
 
-}
-
-void deep_sleep()
-{
   DBG_NINA( "Going to sleep after: " + String( millis() ) + "ms" );
 
   // Turn Wifi/BLE off  
@@ -176,10 +179,14 @@ void deep_sleep()
 
 void setup()
 {
+  // Measure GPIO in order to determine Vref
+  //adc2_vref_to_gpio( GPIO_NUM_25 );
+  //delay(5000);
+
   // Define pins on the NINA board
-  pinMode( LED_RED  , OUTPUT );
-  pinMode( LED_GREEN, OUTPUT );
-  pinMode( LED_BLUE , OUTPUT );
+  pinMode( RGB_R, OUTPUT );
+  pinMode( RGB_G, OUTPUT );
+  pinMode( RGB_B, OUTPUT );
   RGB_off();
 
   blinkIt.attach_ms( 200, blinky );
@@ -194,12 +201,13 @@ void setup()
   #endif
 
   // SDA and SCL PINS on NINA are different from NODEMCU ESP32, the lib does not allow re-assignement, do it here:
-  //Wire.begin( _SDA, _SCL );
+  Wire.begin( _SDA, _SCL );
 
   if ( !htu.begin() )
   {
     DBG_NINA("Couldn't find sensor!");
-    delay( 500 );
+    statusLED = RGB_R;
+    delay( 600 );
     deep_sleep();
   }
 
@@ -253,13 +261,13 @@ void connectWiFi() {
   if( WiFi.status() != WL_CONNECTED )
   {
     RGB_off();
-    statusLED = LED_RED;
+    statusLED = RGB_R;
     delay( 600 );
     deep_sleep();
   }
 
   RGB_off();
-  statusLED = LED_GREEN;
+  statusLED = RGB_G;
 
   blinkIt.attach_ms( 50, blinky );
 
