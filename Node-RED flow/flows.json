@@ -126,8 +126,8 @@
             }
         },
         "site": {
-            "name": "Node-RED Dashboard",
-            "hideToolbar": "false",
+            "name": "MoreE u-blox E-PEAS Energy Harvesting",
+            "hideToolbar": "true",
             "allowSwipe": "false",
             "lockMenu": "false",
             "allowTempTheme": "true",
@@ -395,8 +395,8 @@
         "interpolate": "linear",
         "nodata": "",
         "dot": false,
-        "ymin": "0",
-        "ymax": "4",
+        "ymin": "1",
+        "ymax": "5",
         "removeOlder": "52",
         "removeOlderPoints": "",
         "removeOlderUnit": "604800",
@@ -726,7 +726,7 @@
         "type": "function",
         "z": "2d7c70cb.16397",
         "name": "Sort Cloudant and format data",
-        "func": "// Sort cloudant data by epoch time ascending\nmsg.payload.sort((a, b) => (a.time > b.time) ? 1 : -1)\n\n// Format data as chart.js\nvar chart = [{\n    \"series\":   [\"Battery\"],\n    \"data\":     [[{ }]],\n    \"labels\":   [\"\"]\n}];\n\nfor (var i = 0; i < msg.payload.length; i++)\n{\n    chart[0].data[0][i] = {\n        x: msg.payload[i].time,\n        y: msg.payload[i].payload\n    };\n}\n\n// Set the last seen time from the database.\nvar lastSeen = msg.payload[msg.payload.length-1].time;\nglobal.set(\"last_seen\", lastSeen);\n\n// Catch initial online time\nvar timeNow  = global.get(\"time_now\");\nvar initDate = global.get(\"init_date\");\nvar newTime  = null;\nif( timeNow - lastSeen > 60*60*1000 )\n{\n    node.warn(\"Offiline for too long\");\n    global.set(\"init_date\", -1);\n}\nelse if( initDate == -1 )\n{\n    node.warn(\"Online, reset initial time\");\n    global.set( \"init_date\", lastSeen );\n    newTime = { payload : lastSeen };\n}\n\n// Return formated data as the msg.payload\nmsg.payload = chart;\n\nreturn [msg, newTime];\n",
+        "func": "// Sort cloudant data by epoch time ascending\nmsg.payload.sort((a, b) => (a.time > b.time) ? 1 : -1)\n\n// Format data as chart.js\nvar chart = [{\n    \"series\":   [\"Battery\"],\n    \"data\":     [[{ }]],\n    \"labels\":   [\"\"]\n}];\n\nfor (var i = 0; i < msg.payload.length; i++)\n{\n    chart[0].data[0][i] = {\n        x: msg.payload[i].time,\n        y: msg.payload[i].payload\n    };\n}\n\n// Set the last seen time from the database.\nvar lastSeen = msg.payload[msg.payload.length-1].time;\nglobal.set(\"last_seen\", lastSeen);\n\n// Catch initial online time\nvar timeNow  = global.get(\"time_now\");\nvar initDate = global.get(\"init_date\");\nvar newTime  = null;\nif( timeNow - lastSeen > 90*60*1000 )\n{\n    if( initDate != -1 ) // Notify only once\n    {\n        node.error(\"Offline for too long\", msg);\n        global.set(\"init_date\", -1);\n    }\n}\nelse if( initDate == -1 )\n{\n    node.error(\"Online, reset initial time\", msg);\n    global.set( \"init_date\", lastSeen );\n    newTime = { payload : lastSeen };\n}\n\n// Return formated data as the msg.payload\nmsg.payload = chart;\n\nreturn [msg, newTime];\n",
         "outputs": 2,
         "noerr": 0,
         "x": 390,
@@ -749,7 +749,7 @@
         "topic": "",
         "payload": "",
         "payloadType": "date",
-        "repeat": "3600",
+        "repeat": "60",
         "crontab": "",
         "once": false,
         "onceDelay": 0.1,
@@ -809,27 +809,13 @@
         "name": "",
         "scope": null,
         "uncaught": false,
-        "x": 80,
-        "y": 380,
+        "x": 100,
+        "y": 600,
         "wires": [
             [
-                "2719ddfa.c53f7a"
+                "4c2d2dd9.5e76f4"
             ]
         ]
-    },
-    {
-        "id": "2719ddfa.c53f7a",
-        "type": "e-mail",
-        "z": "2d7c70cb.16397",
-        "server": "smtp.gmail.com",
-        "port": "465",
-        "secure": true,
-        "tls": false,
-        "name": "l.bispo@live.com",
-        "dname": "",
-        "x": 270,
-        "y": 380,
-        "wires": []
     },
     {
         "id": "2dc72f97.1996e",
@@ -857,7 +843,7 @@
         "type": "function",
         "z": "2d7c70cb.16397",
         "name": "bulk delete function",
-        "func": "var count = msg.payload.length;\nvar list = [];\nfor (i=0;i<count;i++) {\nlist.push({\n        _id: msg.payload[i]._id,\n        _rev: msg.payload[i]._rev,\n        _deleted: true\n    });\n}\n\nif (i === 0) {\nmsg.payload = \"No documents were found.  The database is empty!\";\nreturn [null, msg];\n}\n\nmsg.payload = {\n                \"docs\": \n                list\n               }\nreturn msg;",
+        "func": "var count = msg.payload.length;\nvar list = [];\nfor (i=0; i<count; i++) {\nlist.push({\n        _id: msg.payload[i]._id,\n        _rev: msg.payload[i]._rev,\n        _deleted: true\n    });\n}\n\nif (i === 0) {\nmsg.payload = \"No documents were found.  The database is empty!\";\nreturn [null, msg];\n}\n\nmsg.payload = {\n                \"docs\": \n                list\n               }\nreturn msg;",
         "outputs": 1,
         "noerr": 0,
         "x": 520,
@@ -926,13 +912,13 @@
         "id": "96ee4015.46884",
         "type": "cloudant out",
         "z": "2d7c70cb.16397",
-        "name": "Set",
+        "name": "Set Initial Time",
         "cloudant": "",
         "database": "initial_time",
         "service": "MoreElectronics-cloudantNoSQLDB",
         "payonly": false,
         "operation": "insert",
-        "x": 633,
+        "x": 663,
         "y": 358,
         "wires": []
     },
@@ -966,6 +952,71 @@
         "wires": [
             [
                 "3c24d288.1b5a5e"
+            ]
+        ]
+    },
+    {
+        "id": "ae4e3f5c.9d32b",
+        "type": "http request",
+        "z": "2d7c70cb.16397",
+        "name": "IFTT API",
+        "method": "GET",
+        "ret": "txt",
+        "paytoqs": false,
+        "url": "https://maker.ifttt.com/trigger/warning/with/key/fXb9GwNdy2H7yR9Rok2kZ?value1={{payload}}",
+        "tls": "",
+        "proxy": "",
+        "authType": "basic",
+        "x": 500,
+        "y": 600,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "4c2d2dd9.5e76f4",
+        "type": "change",
+        "z": "2d7c70cb.16397",
+        "name": "Filter msg error",
+        "rules": [
+            {
+                "t": "delete",
+                "p": "_msgid",
+                "pt": "msg"
+            },
+            {
+                "t": "delete",
+                "p": "payload",
+                "pt": "msg"
+            },
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "error.message",
+                "tot": "msg"
+            },
+            {
+                "t": "delete",
+                "p": "cloudant",
+                "pt": "msg"
+            },
+            {
+                "t": "delete",
+                "p": "error",
+                "pt": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 300,
+        "y": 600,
+        "wires": [
+            [
+                "ae4e3f5c.9d32b"
             ]
         ]
     }
