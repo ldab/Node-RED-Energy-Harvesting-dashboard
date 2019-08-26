@@ -20,12 +20,14 @@ Node-RED Energy Harvesting dashboard example, weather forecast, temperature and 
 6. [Node-RED Flow](/README.md#Node-RED-Flow)
 7. [OpenWeatherMap API](/README.md#OpenWeatherMap-API)
 8. [Node-RED Notification](/README.md#Node-RED-Notification)
-9. [Calibrating ADC for ESP32](/README.md#Calibrating-ADC-for-ESP32)
-10. [Partition Table and Flash size](/README.md#Partition-Table-and-Flash-size)
-11. [Erase Flash](/README.md#Erase-Flash)
-12. [PCB](/README.md#PCB)
-13. [Final Thoughts or Improvements](/README.md#Final-Thoughts-or-Impovements)
-14. [Credits](/README.md#Credits)
+9. [Programming](/README.md#Programming)
+10. [Calibrating ADC for ESP32](/README.md#Calibrating-ADC-for-ESP32)
+11. [Partition Table and Flash size](/README.md#Partition-Table-and-Flash-size)
+12. [Erase Flash](/README.md#Erase-Flash)
+13. [Power Measurement](/README.md#Power-Measurement)
+14. [PCB](/README.md#PCB)
+15. [Final Thoughts or Improvements](/README.md#Final-Thoughts-or-Impovements)
+16. [Credits](/README.md#Credits)
 
 ## How to build PlatformIO based project
 
@@ -156,9 +158,20 @@ You will find the flow.json [here](./Node-RED%20flow/flows.json).
   * If this than that, with android and iOS apps can be accesible via webhooks;
   * GET `https://maker.ifttt.com/trigger/YOUR_EVENT/with/key/YOUR_KEY?value1=MESSAGE`
 
+## NINA-W1 Programming
+
+* An external 3.3V UART/USB Converter is required in combination with jumper configuration and button pressing:
+  1. Remove the 2 jumpers and set it to `Flash` Position:
+
+  ![board flashing](./pics/flashing.png)
+  
+  2. Power or reset the board while keeping `BOOT` low/pressed.
+
+* In order to program the Nano Timer `TPL5110` the DIP switch needs to be set **before** connecting power/supercap.
+
 ## Calibrating ADC for ESP32
 
-* ADC on ESP32 has been reported being innacurate, therefore one can use ```adc2_vref_to_gpio( GPIO_NUM_25 );``` to route `Vref` to `GPIO_NUM_25` and measure it in order to calibrate during ADC measurement.
+* ADC on ESP32 has been reported being innacurate, therefore one can use ```adc2_vref_to_gpio( GPIO_NUM_25 );``` to route `Vref` to `GPIO_NUM_25` that can be measured over `NINA PIN 16 -> R7` in order to calibrate during ADC measurement.
 * Calling for `esp_adc_cal_characterize(ADC_UNIT_1, ADC_ATTEN_DB_6, ADC_WIDTH_BIT_11, Vref, adc_chars);`
 
 ## Partition Table and Flash size
@@ -175,6 +188,13 @@ You will find the flow.json [here](./Node-RED%20flow/flows.json).
 ## Erase Flash
 
 `pio run -t erase` - > all data will be replaced with 0xFF bytes.
+
+## Power Measurement
+
+* The overall power/current can be measure by diconeting the Storage element and connecting the meter in series;
+* Alternativelly, to analyze NINA-W1 power profile, remove `Vbat` jumper and measure the current on the following position:
+
+![](./pics/power.png)
 
 ## PCB
 
